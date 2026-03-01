@@ -5,43 +5,46 @@
 
 const CACHE_NAME = 'codequest-v1';
 
+// Build relative paths based on sw.js location
+const BASE = self.location.pathname.replace('/sw.js', '/');
+
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/offline.html',
-  '/manifest.json',
-  '/css/tokens.css',
-  '/css/reset.css',
-  '/css/layout.css',
-  '/css/components.css',
-  '/css/editor.css',
-  '/css/animations.css',
-  '/js/app.js',
-  '/js/state.js',
-  '/js/curriculum.js',
-  '/js/utils/dom.js',
-  '/js/utils/fmt.js',
-  '/js/engine/runner.js',
-  '/js/engine/sandbox-js.js',
-  '/js/engine/sandbox-html.js',
-  '/js/engine/pyodide-runner.js',
-  '/js/engine/judge0-runner.js',
-  '/js/challenges/multiple-choice.js',
-  '/js/challenges/fill-blank.js',
-  '/js/challenges/free-code.js',
-  '/js/challenges/fix-bug.js',
-  '/js/gamification/xp.js',
-  '/js/gamification/streak.js',
-  '/js/gamification/badges.js',
-  '/js/ui/screen-home.js',
-  '/js/ui/screen-lesson.js',
-  '/js/ui/screen-challenge.js',
-  '/js/ui/screen-profile.js',
-  '/js/ui/screen-settings.js',
-  '/js/ui/editor-widget.js',
-  '/js/ui/output-panel.js',
-  '/js/ui/toast.js',
-  '/data/curriculum.json',
+  BASE,
+  BASE + 'index.html',
+  BASE + 'offline.html',
+  BASE + 'manifest.json',
+  BASE + 'css/tokens.css',
+  BASE + 'css/reset.css',
+  BASE + 'css/layout.css',
+  BASE + 'css/components.css',
+  BASE + 'css/editor.css',
+  BASE + 'css/animations.css',
+  BASE + 'js/app.js',
+  BASE + 'js/state.js',
+  BASE + 'js/curriculum.js',
+  BASE + 'js/utils/dom.js',
+  BASE + 'js/utils/fmt.js',
+  BASE + 'js/engine/runner.js',
+  BASE + 'js/engine/sandbox-js.js',
+  BASE + 'js/engine/sandbox-html.js',
+  BASE + 'js/engine/pyodide-runner.js',
+  BASE + 'js/engine/judge0-runner.js',
+  BASE + 'js/challenges/multiple-choice.js',
+  BASE + 'js/challenges/fill-blank.js',
+  BASE + 'js/challenges/free-code.js',
+  BASE + 'js/challenges/fix-bug.js',
+  BASE + 'js/gamification/xp.js',
+  BASE + 'js/gamification/streak.js',
+  BASE + 'js/gamification/badges.js',
+  BASE + 'js/ui/screen-home.js',
+  BASE + 'js/ui/screen-lesson.js',
+  BASE + 'js/ui/screen-challenge.js',
+  BASE + 'js/ui/screen-profile.js',
+  BASE + 'js/ui/screen-settings.js',
+  BASE + 'js/ui/editor-widget.js',
+  BASE + 'js/ui/output-panel.js',
+  BASE + 'js/ui/toast.js',
+  BASE + 'data/curriculum.json',
 ];
 
 // ── Install: pre-cache all static assets ──────────────────
@@ -88,7 +91,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     cacheFirst(event.request).catch(() => {
       if (event.request.mode === 'navigate') {
-        return caches.match('/offline.html');
+        return caches.match(BASE + 'offline.html');
       }
     })
   );

@@ -2,13 +2,13 @@
   "name": "CodeQuest",
   "short_name": "CodeQuest",
   "description": "Learn Python, JavaScript, Java, HTML, and CSS through bite-sized challenges.",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0F0F1A",
   "theme_color": "#6C63FF",
   "lang": "en",
-  "scope": "/",
+  "scope": "./",
   "categories": ["education", "productivity"],
   "icons": [
     {
