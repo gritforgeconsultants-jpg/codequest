@@ -91,6 +91,17 @@ export function renderLesson(appEl, lessonId) {
 
   const sections   = lesson.theory?.sections ?? [];
   const challenges = challengesForLesson(lessonId);
+
+  // Resume: if the user has already started challenges, skip theory and jump
+  // to the first incomplete challenge (or back to track if all are done).
+  if (challenges.some(c => state.isChallengeComplete(c.id))) {
+    const firstIncomplete = challenges.find(c => !state.isChallengeComplete(c.id));
+    window.location.hash = firstIncomplete
+      ? `challenge/${firstIncomplete.id}`
+      : `track/${lesson.trackId}`;
+    return;
+  }
+
   let sectionIdx   = 0;
 
   function renderSection() {
@@ -138,7 +149,7 @@ export function renderLesson(appEl, lessonId) {
     const header = ce('header', { class: 'app-header', style: 'position:relative' },
       ce('button', { class: 'back-btn', onclick: () => { window.location.hash = `track/${lesson.trackId}`; } }, '‹'),
       ce('h1', { text: lesson.title }),
-      ce('span', { style: 'color:var(--text-dim);font-size:13px', text: `${sectionIdx + 1}/${sections.length}` }),
+      ce('button', { class: 'icon-btn', title: 'Home', onclick: () => { window.location.hash = 'home'; } }, '🏠'),
       progressBar,
     );
 

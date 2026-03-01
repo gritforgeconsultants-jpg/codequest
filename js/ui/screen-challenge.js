@@ -81,9 +81,9 @@ export function renderChallenge(appEl, challengeId) {
   const progressBar  = ce('div', { class: 'lesson-progress-bar' }, progressFill);
 
   const header = ce('header', { class: 'app-header', style: 'position:relative' },
-    ce('button', { class: 'back-btn', onclick: () => { window.location.hash = `lesson/${ch.lessonId}`; } }, '‹'),
+    ce('button', { class: 'back-btn', onclick: () => { window.location.hash = `track/${lesson?.trackId ?? 'home'}`; } }, '‹'),
     ce('h1', { text: lesson?.title ?? 'Challenge' }),
-    ce('span', { style: 'color:var(--text-dim);font-size:13px', text: `${chIndex + 1}/${challenges.length}` }),
+    ce('button', { class: 'icon-btn', title: 'Home', onclick: () => { window.location.hash = 'home'; } }, '🏠'),
     progressBar,
   );
 
