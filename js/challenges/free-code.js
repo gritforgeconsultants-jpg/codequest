@@ -5,67 +5,56 @@ import { run } from '../engine/runner.js';
 import { normalizeOutput } from '../utils/fmt.js';
 
 export function renderFreeCode(bodyEl, { ch, onComplete, onAttempt, onHint }) {
-  let attempts  = 0;
-  let hintIdx   = 0;
-  const hints   = ch.hints ?? (ch.hint ? [ch.hint] : []);
+  let hintIdx  = 0;
+  const hints  = ch.hints ?? (ch.hint ? [ch.hint] : []);
 
-  let editorView = null;
   const outputEl = ce('div');
   renderOutputPanel(outputEl, ch.executor ?? ch.language);
 
   const testCaseEls = (ch.testCases ?? [])
     .filter(tc => !tc.isHidden)
-    .map(tc => {
-      const dot = ce('div', { class: 'test-dot', title: tc.description });
-      return { tc, dot };
-    });
+    .map(tc => ({ tc, dot: ce('div', { class: 'test-dot', title: tc.description }) }));
 
   const dotsEl = ce('div', { class: 'test-cases' }, ...testCaseEls.map(t => t.dot));
 
-  const hints_ = ch.hints ?? (ch.hint ? [ch.hint] : []);
   const hintBox = ce('div', { class: 'hint-text', style: 'display:none' });
   const hintBtn = ce('button', { class: 'hint-btn', onclick: () => {
-    if (!hints_.length) return;
+    if (!hints.length) return;
     onHint();
-    hintBox.textContent = hints_[hintIdx % hints_.length];
+    hintBox.textContent = hints[hintIdx % hints.length];
     hintBox.style.display = 'block';
     hintIdx++;
-    if (hintIdx >= hints_.length) hintBtn.disabled = true;
+    if (hintIdx >= hints.length) hintBtn.disabled = true;
   }}, '💡 Hint');
-  if (!hints_.length) hintBtn.style.display = 'none';
+  if (!hints.length) hintBtn.style.display = 'none';
+
+  const editorMount = ce('div');
+  let editor = null;
 
   async function runAndCheck() {
-    const code = editorView?.state.doc.toString() ?? '';
-    attempts++;
+    const code = editor ? editor.getValue() : '';
     onAttempt();
-
     setOutput(outputEl, 'running', '');
-
     testCaseEls.forEach(({ dot }) => dot.className = 'test-dot running');
 
-    let allPass = true;
+    let allPass  = true;
     let outputLog = '';
 
     for (const { tc, dot } of testCaseEls) {
-      const combined = [code, tc.setupCode ?? '', tc.callCode ?? ''].join('\n');
+      const combined = [code, tc.setupCode ?? '', tc.callCode ?? ''].filter(Boolean).join('\n');
       try {
-        const result = await run(ch.executor ?? ch.language, combined, tc.stdin ?? '');
-        const actual = normalizeOutput(result.stdout);
+        const result   = await run(ch.executor ?? ch.language, combined, tc.stdin ?? '');
+        const actual   = normalizeOutput(result.stdout);
         const expected = normalizeOutput(tc.expectedOutput);
-        const pass = actual === expected;
-
-        dot.className = `test-dot ${pass ? 'pass' : 'fail'}`;
+        const pass     = actual === expected && !result.stderr;
+        dot.className  = `test-dot ${pass ? 'pass' : 'fail'}`;
         if (!pass) {
           allPass = false;
-          outputLog += `✗ ${tc.description}\n  Expected: ${expected}\n  Got:      ${actual}\n`;
+          outputLog += result.stderr
+            ? `✗ ${tc.description}\n  Error: ${result.stderr}\n`
+            : `✗ ${tc.description}\n  Expected: "${expected}"\n  Got:      "${actual}"\n`;
         } else {
           outputLog += `✓ ${tc.description}\n`;
-        }
-
-        if (result.stderr) {
-          outputLog += `  Error: ${result.stderr}\n`;
-          allPass = false;
-          dot.className = 'test-dot fail';
         }
       } catch (e) {
         dot.className = 'test-dot fail';
@@ -74,8 +63,7 @@ export function renderFreeCode(bodyEl, { ch, onComplete, onAttempt, onHint }) {
       }
     }
 
-    setOutput(outputEl, allPass ? 'stdout' : 'stderr', outputLog);
-
+    setOutput(outputEl, allPass ? 'stdout' : 'stderr', outputLog.trim() || '(no output)');
     if (allPass) {
       runBtn.textContent = 'Continue →';
       runBtn.className   = 'btn btn-success';
@@ -85,20 +73,17 @@ export function renderFreeCode(bodyEl, { ch, onComplete, onAttempt, onHint }) {
 
   const runBtn = ce('button', { class: 'btn btn-primary', onclick: runAndCheck }, '▶  Run & Check');
 
-  const editorMount = ce('div');
-
   render(bodyEl,
     ce('div', { class: 'screen-content slide-in-right' },
       ce('div', { class: 'challenge-card' },
         ce('div', { class: 'challenge-type-badge', text: '💻 Write Code' }),
-        ce('div', { class: 'challenge-prompt', html: formatText(ch.prompt) }),
+        ce('div', { class: 'challenge-prompt', html: fmtText(ch.prompt) }),
       ),
       ce('div', { class: 'editor-wrapper' },
         ce('div', { class: 'editor-toolbar' },
           ce('span', { class: 'editor-lang-badge', text: ch.language ?? ch.executor ?? 'code' }),
         ),
         editorMount,
-        buildMobileKeybar(ch.language ?? ch.executor),
       ),
       outputEl,
       dotsEl,
@@ -108,28 +93,11 @@ export function renderFreeCode(bodyEl, { ch, onComplete, onAttempt, onHint }) {
     ce('div', { class: 'sticky-cta' }, runBtn),
   );
 
-  // Mount CodeMirror after DOM is ready
   requestAnimationFrame(() => {
-    editorView = createEditor(editorMount, ch.starterCode ?? '', ch.language ?? ch.executor);
+    editor = createEditor(editorMount, ch.starterCode ?? '', ch.language ?? ch.executor);
   });
 }
 
-function formatText(str) {
+function fmtText(str) {
   return String(str).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\n/g, '<br>');
-}
-
-function buildMobileKeybar(lang) {
-  const keys = lang === 'python'
-    ? ['def ', 'return ', 'print()', 'for ', 'in ', ':', '    ', '[]', '{}', '""']
-    : lang === 'java'
-    ? ['System.out.println()', 'public ', 'static ', 'void ', 'int ', 'String ', '{}', '();', '[]']
-    : ['console.log()', 'function ', 'const ', 'return ', '{}', '[]', '=>', '()'];
-
-  return ce('div', { class: 'mobile-keys' },
-    ...keys.map(k => {
-      const btn = ce('button', { class: 'mobile-key', text: k });
-      // inject key at cursor would require CM6 integration — for now just copy to clipboard hint
-      return btn;
-    }),
-  );
 }

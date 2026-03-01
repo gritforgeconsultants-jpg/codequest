@@ -1,6 +1,10 @@
 import { ce, render, qs } from '../utils/dom.js';
 import * as state from '../state.js';
-import { goBack } from '../app.js';
+
+function goBack() {
+  if (window.history.length > 1) window.history.back();
+  else window.location.hash = 'home';
+}
 
 export function renderSettings(appEl) {
   function row(label, desc, control) {

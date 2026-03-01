@@ -2,7 +2,11 @@ import { ce, render } from '../utils/dom.js';
 import { fmtN, fmtXP } from '../utils/fmt.js';
 import { getTrack, lessonsForTrack, getLesson, challengesForLesson } from '../curriculum.js';
 import * as state from '../state.js';
-import { goBack } from '../app.js';
+
+function goBack() {
+  if (window.history.length > 1) window.history.back();
+  else window.location.hash = 'home';
+}
 
 /* ── Track screen (lesson map) ───────────────────────────── */
 export function renderTrack(appEl, trackId) {

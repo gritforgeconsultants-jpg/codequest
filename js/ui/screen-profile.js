@@ -5,7 +5,11 @@ import * as xpMod from '../gamification/xp.js';
 import { get as getStreak } from '../gamification/streak.js';
 import { BADGES, unlocked } from '../gamification/badges.js';
 import { allTracks, lessonsForTrack } from '../curriculum.js';
-import { goBack } from '../app.js';
+
+function goBack() {
+  if (window.history.length > 1) window.history.back();
+  else window.location.hash = 'home';
+}
 
 export function renderProfile(appEl) {
   const totalXP = state.get('totalXP') ?? 0;
