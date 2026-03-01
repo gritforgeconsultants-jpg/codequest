@@ -59,7 +59,24 @@ function route() {
     }
   } catch (err) {
     console.error('Route error:', err);
-    window.location.hash = 'home';
+    if (path !== 'home') {
+      window.location.hash = 'home';
+    } else {
+      appEl.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
+                    min-height:100dvh;padding:32px;text-align:center;gap:16px;color:#E8E8F0">
+          <div style="font-size:48px">⚠️</div>
+          <div style="font-size:20px;font-weight:700">Something went wrong</div>
+          <div style="color:#9090B0;font-size:13px;max-width:320px;word-break:break-word">
+            ${err.message || String(err)}
+          </div>
+          <button onclick="location.reload()"
+            style="margin-top:8px;padding:14px 28px;background:#6C63FF;color:#fff;
+                   border:none;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer">
+            Reload
+          </button>
+        </div>`;
+    }
   }
 }
 
@@ -71,5 +88,9 @@ export function goBack() {
   if (window.history.length > 1) window.history.back();
   else window.location.hash = 'home';
 }
+
+window.addEventListener('unhandledrejection', event => {
+  console.error('Unhandled rejection:', event.reason);
+});
 
 init();

@@ -3,7 +3,7 @@
  * Pyodide CDN files (~10MB) are cached aggressively after first load.
  */
 
-const CACHE_NAME = 'codequest-v1';
+const CACHE_NAME = 'codequest-v2';
 
 // Build relative paths based on sw.js location
 const BASE = self.location.pathname.replace('/sw.js', '/');
