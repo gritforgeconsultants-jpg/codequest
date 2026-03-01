@@ -1,0 +1,911 @@
+{
+  "_version": "1.0.0",
+  "tracks": [
+    {
+      "id": "python",
+      "title": "Python",
+      "subtitle": "Build a CLI Todo App",
+      "icon": "🐍",
+      "executor": "pyodide",
+      "lessons": [
+        {
+          "id": "py-01-variables",
+          "title": "Variables & Print",
+          "xpReward": 50,
+          "projectContribution": "You'll store the first task in a variable.",
+          "theory": {
+            "sections": [
+              {
+                "type": "text",
+                "content": "In Python, you store values in **variables** using the `=` sign. Variable names are lowercase with underscores."
+              },
+              {
+                "type": "code",
+                "language": "python",
+                "content": "task = \"Buy milk\"\nprint(task)"
+              },
+              {
+                "type": "output",
+                "content": "Buy milk"
+              },
+              {
+                "type": "text",
+                "content": "The `print()` function displays a value on the screen. You can print text (strings) or numbers."
+              },
+              {
+                "type": "code",
+                "language": "python",
+                "content": "name = \"Alice\"\nage = 25\nprint(name)\nprint(age)"
+              },
+              {
+                "type": "output",
+                "content": "Alice\n25"
+              }
+            ]
+          },
+          "challenges": [
+            {
+              "id": "py-01-a",
+              "type": "multiple-choice",
+              "xpReward": 15,
+              "prompt": "What does this code output?\n```python\nx = 10\nprint(x)\n```",
+              "options": [
+                { "id": "a", "text": "x" },
+                { "id": "b", "text": "10" },
+                { "id": "c", "text": "print(x)" },
+                { "id": "d", "text": "Error" }
+              ],
+              "correctId": "b",
+              "explanation": "print(x) outputs the VALUE stored in x, which is 10, not the name 'x'."
+            },
+            {
+              "id": "py-01-b",
+              "type": "fill-blank",
+              "xpReward": 15,
+              "prompt": "Complete the code to create a variable called `task` and print it:",
+              "template": "_____ = \"Buy milk\"\nprint(_____)",
+              "blanks": [
+                { "index": 0, "answer": "task", "caseSensitive": true },
+                { "index": 1, "answer": "task", "caseSensitive": true }
+              ],
+              "hints": ["Variable names are lowercase words.", "Use the same name on both lines."]
+            },
+            {
+              "id": "py-01-c",
+              "type": "free-code",
+              "xpReward": 25,
+              "prompt": "Create a variable `greeting` with the value `\"Hello, World!\"` and print it.",
+              "language": "python",
+              "executor": "pyodide",
+              "starterCode": "# Create your variable here\n",
+              "testCases": [
+                {
+                  "id": "tc1",
+                  "description": "Prints: Hello, World!",
+                  "callCode": "",
+                  "expectedOutput": "Hello, World!",
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "py-02-input",
+          "title": "User Input",
+          "xpReward": 50,
+          "projectContribution": "Your app will now ask the user to type a task.",
+          "theory": {
+            "sections": [
+              {
+                "type": "text",
+                "content": "The `input()` function pauses the program and waits for the user to type something. Whatever they type is returned as a string."
+              },
+              {
+                "type": "code",
+                "language": "python",
+                "content": "task = input(\"Enter a task: \")\nprint(\"You entered:\", task)"
+              },
+              {
+                "type": "text",
+                "content": "The text inside `input()` is the **prompt** — it tells the user what to type. The user's response is stored in the variable."
+              },
+              {
+                "type": "code",
+                "language": "python",
+                "content": "name = input(\"What is your name? \")\nprint(\"Hello,\", name)"
+              }
+            ]
+          },
+          "challenges": [
+            {
+              "id": "py-02-a",
+              "type": "multiple-choice",
+              "xpReward": 15,
+              "prompt": "What type does `input()` always return?",
+              "options": [
+                { "id": "a", "text": "int" },
+                { "id": "b", "text": "float" },
+                { "id": "c", "text": "str (string)" },
+                { "id": "d", "text": "bool" }
+              ],
+              "correctId": "c",
+              "explanation": "input() always returns a string, even if the user types a number. Use int() or float() to convert it."
+            },
+            {
+              "id": "py-02-b",
+              "type": "fill-blank",
+              "xpReward": 15,
+              "prompt": "Complete the code to ask for a task and print it:",
+              "template": "task = _____('Enter a task: ')\nprint('Task:', _____)",
+              "blanks": [
+                { "index": 0, "answer": "input", "caseSensitive": true },
+                { "index": 1, "answer": "task", "caseSensitive": true }
+              ],
+              "hints": ["The function that reads user input is called input().", "Print the variable you stored the input in."]
+            },
+            {
+              "id": "py-02-c",
+              "type": "fix-bug",
+              "xpReward": 20,
+              "prompt": "This code should print `Hello, Alice!` but it has a bug. Fix it:",
+              "language": "python",
+              "executor": "pyodide",
+              "buggyCode": "name = \"Alice\"\nprint(\"Hello,\" name + \"!\")",
+              "hints": ["Look at the print() call — something is missing between the arguments.", "You need a comma between 'Hello,' and name."],
+              "testCases": [
+                {
+                  "id": "tc1",
+                  "description": "Prints: Hello, Alice!",
+                  "callCode": "",
+                  "expectedOutput": "Hello, Alice!",
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "py-03-lists",
+          "title": "Lists",
+          "xpReward": 50,
+          "projectContribution": "You'll create a list to store all your tasks.",
+          "theory": {
+            "sections": [
+              {
+                "type": "text",
+                "content": "A **list** stores multiple values in order. Create one with square brackets `[]`. Add items with `.append()`."
+              },
+              {
+                "type": "code",
+                "language": "python",
+                "content": "tasks = []\ntasks.append(\"Buy milk\")\ntasks.append(\"Call mom\")\nprint(tasks)"
+              },
+              {
+                "type": "output",
+                "content": "['Buy milk', 'Call mom']"
+              },
+              {
+                "type": "text",
+                "content": "Access items by **index** (starting at 0). Use `len()` to get the length."
+              },
+              {
+                "type": "code",
+                "language": "python",
+                "content": "tasks = [\"Buy milk\", \"Call mom\"]\nprint(tasks[0])   # first item\nprint(len(tasks)) # number of items"
+              },
+              {
+                "type": "output",
+                "content": "Buy milk\n2"
+              }
+            ]
+          },
+          "challenges": [
+            {
+              "id": "py-03-a",
+              "type": "multiple-choice",
+              "xpReward": 15,
+              "prompt": "What does `tasks[0]` return if `tasks = [\"A\", \"B\", \"C\"]`?",
+              "options": [
+                { "id": "a", "text": "\"B\"" },
+                { "id": "b", "text": "\"C\"" },
+                { "id": "c", "text": "\"A\"" },
+                { "id": "d", "text": "1" }
+              ],
+              "correctId": "c",
+              "explanation": "Lists are zero-indexed. tasks[0] is the first element, 'A'."
+            },
+            {
+              "id": "py-03-b",
+              "type": "fill-blank",
+              "xpReward": 15,
+              "prompt": "Complete the code to create a list and add a task:",
+              "template": "tasks = ___\ntasks._____(\"Do laundry\")\nprint(tasks)",
+              "blanks": [
+                { "index": 0, "answer": "[]", "caseSensitive": true },
+                { "index": 1, "answer": "append", "caseSensitive": true }
+              ],
+              "hints": ["An empty list is written as [].", "The method to add to a list is append()."]
+            },
+            {
+              "id": "py-03-c",
+              "type": "free-code",
+              "xpReward": 25,
+              "prompt": "Create a list called `tasks` with two items: `\"Buy milk\"` and `\"Call mom\"`. Then print the list length using `len()`.",
+              "language": "python",
+              "executor": "pyodide",
+              "starterCode": "# Create your list and print its length\n",
+              "testCases": [
+                {
+                  "id": "tc1",
+                  "description": "Prints: 2",
+                  "callCode": "",
+                  "expectedOutput": "2",
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "py-04-loops",
+          "title": "Loops",
+          "xpReward": 50,
+          "projectContribution": "You'll print all tasks in the list, numbered.",
+          "theory": {
+            "sections": [
+              {
+                "type": "text",
+                "content": "A `for` loop repeats code for each item in a list. Use `enumerate()` to get both the index and the value."
+              },
+              {
+                "type": "code",
+                "language": "python",
+                "content": "tasks = [\"Buy milk\", \"Call mom\"]\nfor task in tasks:\n    print(task)"
+              },
+              {
+                "type": "output",
+                "content": "Buy milk\nCall mom"
+              },
+              {
+                "type": "code",
+                "language": "python",
+                "content": "tasks = [\"Buy milk\", \"Call mom\"]\nfor i, task in enumerate(tasks, 1):\n    print(i, task)"
+              },
+              {
+                "type": "output",
+                "content": "1 Buy milk\n2 Call mom"
+              }
+            ]
+          },
+          "challenges": [
+            {
+              "id": "py-04-a",
+              "type": "multiple-choice",
+              "xpReward": 15,
+              "prompt": "How many times does this loop run?\n```python\nfor x in [10, 20, 30]:\n    print(x)\n```",
+              "options": [
+                { "id": "a", "text": "1 time" },
+                { "id": "b", "text": "2 times" },
+                { "id": "c", "text": "3 times" },
+                { "id": "d", "text": "0 times" }
+              ],
+              "correctId": "c",
+              "explanation": "The list has 3 elements, so the loop runs once for each: 10, 20, 30."
+            },
+            {
+              "id": "py-04-b",
+              "type": "fill-blank",
+              "xpReward": 15,
+              "prompt": "Complete the loop to print each task:",
+              "template": "tasks = [\"Buy milk\", \"Call mom\"]\n_____ task _____ tasks:\n    print(task)",
+              "blanks": [
+                { "index": 0, "answer": "for", "caseSensitive": true },
+                { "index": 1, "answer": "in", "caseSensitive": true }
+              ],
+              "hints": ["A for loop starts with the word 'for'.", "The keyword between the variable and the list is 'in'."]
+            },
+            {
+              "id": "py-04-c",
+              "type": "fix-bug",
+              "xpReward": 20,
+              "prompt": "This code should print each task numbered. Fix the bug:",
+              "language": "python",
+              "executor": "pyodide",
+              "buggyCode": "tasks = [\"Buy milk\", \"Call mom\"]\nfor i, task in enumerate(tasks)\n    print(i + 1, task)",
+              "hints": ["Python requires a colon `:` at the end of a for statement.", "Check the end of the for line."],
+              "testCases": [
+                {
+                  "id": "tc1",
+                  "description": "Prints: 1 Buy milk",
+                  "callCode": "",
+                  "expectedOutput": "1 Buy milk\n2 Call mom",
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "py-05-conditions",
+          "title": "If / Else",
+          "xpReward": 50,
+          "projectContribution": "Your app will have a menu: add, list, or quit.",
+          "theory": {
+            "sections": [
+              {
+                "type": "text",
+                "content": "Use `if`, `elif`, and `else` to make decisions in your code based on conditions."
+              },
+              {
+                "type": "code",
+                "language": "python",
+                "content": "choice = \"add\"\nif choice == \"add\":\n    print(\"Adding a task\")\nelif choice == \"list\":\n    print(\"Listing tasks\")\nelse:\n    print(\"Unknown command\")"
+              },
+              {
+                "type": "output",
+                "content": "Adding a task"
+              }
+            ]
+          },
+          "challenges": [
+            {
+              "id": "py-05-a",
+              "type": "multiple-choice",
+              "xpReward": 15,
+              "prompt": "What prints when `x = 5`?\n```python\nif x > 10:\n    print(\"big\")\nelif x > 3:\n    print(\"medium\")\nelse:\n    print(\"small\")\n```",
+              "options": [
+                { "id": "a", "text": "big" },
+                { "id": "b", "text": "medium" },
+                { "id": "c", "text": "small" },
+                { "id": "d", "text": "Nothing" }
+              ],
+              "correctId": "b",
+              "explanation": "5 is not > 10, but 5 IS > 3, so 'medium' prints."
+            },
+            {
+              "id": "py-05-b",
+              "type": "fill-blank",
+              "xpReward": 15,
+              "prompt": "Complete the condition check:",
+              "template": "score = 90\n_____ score >= 90:\n    print(\"A grade\")\n_____:\n    print(\"Below A\")",
+              "blanks": [
+                { "index": 0, "answer": "if", "caseSensitive": true },
+                { "index": 1, "answer": "else", "caseSensitive": true }
+              ],
+              "hints": ["The first keyword for a condition is 'if'.", "The fallback case uses 'else'."]
+            },
+            {
+              "id": "py-05-c",
+              "type": "free-code",
+              "xpReward": 25,
+              "prompt": "Write code that checks if `temperature` (set to 100) is above 90. If so, print `\"Hot\"`, otherwise print `\"Cool\"`.",
+              "language": "python",
+              "executor": "pyodide",
+              "starterCode": "temperature = 100\n# Write your if/else here\n",
+              "testCases": [
+                {
+                  "id": "tc1",
+                  "description": "Prints: Hot",
+                  "callCode": "",
+                  "expectedOutput": "Hot",
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "py-06-functions",
+          "title": "Functions",
+          "xpReward": 50,
+          "projectContribution": "Refactor into add_task() and list_tasks() functions.",
+          "theory": {
+            "sections": [
+              {
+                "type": "text",
+                "content": "A **function** groups reusable code under a name. Define it with `def`, and call it by name. Use `return` to send a value back."
+              },
+              {
+                "type": "code",
+                "language": "python",
+                "content": "def greet(name):\n    return \"Hello, \" + name\n\nprint(greet(\"Alice\"))\nprint(greet(\"Bob\"))"
+              },
+              {
+                "type": "output",
+                "content": "Hello, Alice\nHello, Bob"
+              }
+            ]
+          },
+          "challenges": [
+            {
+              "id": "py-06-a",
+              "type": "multiple-choice",
+              "xpReward": 15,
+              "prompt": "What does this function return?\n```python\ndef add(a, b):\n    return a + b\n\nresult = add(3, 4)\n```",
+              "options": [
+                { "id": "a", "text": "3" },
+                { "id": "b", "text": "4" },
+                { "id": "c", "text": "7" },
+                { "id": "d", "text": "\"a + b\"" }
+              ],
+              "correctId": "c",
+              "explanation": "add(3, 4) evaluates 3 + 4 = 7 and returns it."
+            },
+            {
+              "id": "py-06-b",
+              "type": "fill-blank",
+              "xpReward": 15,
+              "prompt": "Complete the function definition:",
+              "template": "_____ add_task(tasks, task):\n    tasks.append(task)\n    _____ tasks",
+              "blanks": [
+                { "index": 0, "answer": "def", "caseSensitive": true },
+                { "index": 1, "answer": "return", "caseSensitive": true }
+              ],
+              "hints": ["Functions start with the keyword 'def'.", "Use 'return' to send back a value."]
+            },
+            {
+              "id": "py-06-c",
+              "type": "free-code",
+              "xpReward": 25,
+              "prompt": "Write a function `multiply(a, b)` that returns `a * b`. Then call it with `3` and `7` and print the result.",
+              "language": "python",
+              "executor": "pyodide",
+              "starterCode": "# Define and call the function\n",
+              "testCases": [
+                {
+                  "id": "tc1",
+                  "description": "Prints: 21",
+                  "callCode": "",
+                  "expectedOutput": "21",
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "py-07-fileio",
+          "title": "File I/O",
+          "xpReward": 50,
+          "projectContribution": "Save tasks to a file so they persist between runs.",
+          "theory": {
+            "sections": [
+              {
+                "type": "text",
+                "content": "Use `open()` to read and write files. The `with` statement automatically closes the file. Use `json` to save structured data."
+              },
+              {
+                "type": "code",
+                "language": "python",
+                "content": "import json\n\n# Write\ndata = [\"Buy milk\", \"Call mom\"]\nwith open(\"tasks.json\", \"w\") as f:\n    json.dump(data, f)\n\n# Read\nwith open(\"tasks.json\", \"r\") as f:\n    loaded = json.load(f)\nprint(loaded)"
+              },
+              {
+                "type": "output",
+                "content": "['Buy milk', 'Call mom']"
+              }
+            ]
+          },
+          "challenges": [
+            {
+              "id": "py-07-a",
+              "type": "multiple-choice",
+              "xpReward": 15,
+              "prompt": "What does `\"w\"` mean in `open(\"file.txt\", \"w\")`?",
+              "options": [
+                { "id": "a", "text": "Read the file" },
+                { "id": "b", "text": "Write to the file (creates/overwrites)" },
+                { "id": "c", "text": "Append to the file" },
+                { "id": "d", "text": "Watch the file for changes" }
+              ],
+              "correctId": "b",
+              "explanation": "\"w\" is write mode: it creates the file if it doesn't exist, or overwrites it. \"r\" reads, \"a\" appends."
+            },
+            {
+              "id": "py-07-b",
+              "type": "fill-blank",
+              "xpReward": 15,
+              "prompt": "Complete the code to save tasks as JSON:",
+              "template": "import _____\ntasks = [\"Buy milk\"]\nwith open(\"tasks.json\", \"_____\") as f:\n    json.dump(tasks, f)",
+              "blanks": [
+                { "index": 0, "answer": "json", "caseSensitive": true },
+                { "index": 1, "answer": "w", "caseSensitive": true }
+              ],
+              "hints": ["The standard library module for JSON is called 'json'.", "To write a file, use mode 'w'."]
+            },
+            {
+              "id": "py-07-c",
+              "type": "free-code",
+              "xpReward": 25,
+              "prompt": "Write a function `save_tasks(tasks)` that saves a list to `tasks.json` using `json.dump`. Call it with `[\"Walk dog\"]` then read it back and print it.",
+              "language": "python",
+              "executor": "pyodide",
+              "starterCode": "import json\n\ndef save_tasks(tasks):\n    # Write the tasks to tasks.json\n    pass\n\nsave_tasks([\"Walk dog\"])\n# Now read and print tasks.json\n",
+              "testCases": [
+                {
+                  "id": "tc1",
+                  "description": "Prints: ['Walk dog']",
+                  "callCode": "",
+                  "expectedOutput": "['Walk dog']",
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "py-08-final",
+          "title": "Final Project: Todo App",
+          "xpReward": 150,
+          "projectContribution": "Assemble everything into a working CLI Todo App!",
+          "theory": {
+            "sections": [
+              {
+                "type": "text",
+                "content": "You've learned variables, input, lists, loops, conditions, functions, and file I/O. Now put it all together!"
+              },
+              {
+                "type": "text",
+                "content": "Your Todo CLI app will:\n1. Load tasks from `tasks.json` on startup\n2. Show a menu: **add**, **list**, **quit**\n3. Save tasks when quitting"
+              },
+              {
+                "type": "code",
+                "language": "python",
+                "content": "import json\n\ndef load_tasks():\n    try:\n        with open('tasks.json') as f:\n            return json.load(f)\n    except FileNotFoundError:\n        return []\n\ndef save_tasks(tasks):\n    with open('tasks.json', 'w') as f:\n        json.dump(tasks, f)\n\ndef list_tasks(tasks):\n    if not tasks:\n        print('No tasks yet.')\n        return\n    for i, task in enumerate(tasks, 1):\n        print(f'{i}. {task}')\n\ndef add_task(tasks, name):\n    tasks.append(name)\n    print(f'Added: {name}')"
+              }
+            ]
+          },
+          "challenges": [
+            {
+              "id": "py-08-a",
+              "type": "multiple-choice",
+              "xpReward": 15,
+              "prompt": "Which module saves Python data as a JSON file?",
+              "options": [
+                { "id": "a", "text": "csv" },
+                { "id": "b", "text": "json" },
+                { "id": "c", "text": "os" },
+                { "id": "d", "text": "sys" }
+              ],
+              "correctId": "b",
+              "explanation": "The 'json' module provides json.dump() to write and json.load() to read JSON files."
+            },
+            {
+              "id": "py-08-b",
+              "type": "fill-blank",
+              "xpReward": 15,
+              "prompt": "Complete the load_tasks function:",
+              "template": "import json\n\ndef load_tasks():\n    try:\n        with open('tasks.json') as f:\n            _____ json.load(f)\n    except _____:\n        return []",
+              "blanks": [
+                { "index": 0, "answer": "return", "caseSensitive": true },
+                { "index": 1, "answer": "FileNotFoundError", "caseSensitive": true }
+              ],
+              "hints": ["Use 'return' to send back the loaded data.", "The exception for a missing file is FileNotFoundError."]
+            },
+            {
+              "id": "py-08-c",
+              "type": "free-code",
+              "xpReward": 50,
+              "prompt": "Write a complete `add_task(tasks, name)` function that appends `name` to the `tasks` list and prints `\"Added: \" + name`. Then call it and print the list length.",
+              "language": "python",
+              "executor": "pyodide",
+              "starterCode": "def add_task(tasks, name):\n    # Add name to tasks and print \"Added: \" + name\n    pass\n\ntasks = []\nadd_task(tasks, \"Walk dog\")\nadd_task(tasks, \"Buy milk\")\nprint(len(tasks))\n",
+              "testCases": [
+                {
+                  "id": "tc1",
+                  "description": "Prints Added messages and length 2",
+                  "callCode": "",
+                  "expectedOutput": "Added: Walk dog\nAdded: Buy milk\n2",
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "javascript",
+      "title": "JavaScript",
+      "subtitle": "Build a Browser Quiz App",
+      "icon": "⚡",
+      "executor": "browser-js",
+      "lessons": [
+        {
+          "id": "js-01-variables",
+          "title": "Variables & Console",
+          "xpReward": 50,
+          "projectContribution": "Define your first quiz question as an object.",
+          "theory": {
+            "sections": [
+              {
+                "type": "text",
+                "content": "JavaScript uses `let` and `const` for variables. Use `console.log()` to print values."
+              },
+              {
+                "type": "code",
+                "language": "javascript",
+                "content": "const score = 0;\nlet playerName = \"Alice\";\nconsole.log(playerName, score);"
+              },
+              {
+                "type": "output",
+                "content": "Alice 0"
+              }
+            ]
+          },
+          "challenges": [
+            {
+              "id": "js-01-a",
+              "type": "multiple-choice",
+              "xpReward": 15,
+              "prompt": "What is the difference between `let` and `const`?",
+              "options": [
+                { "id": "a", "text": "No difference" },
+                { "id": "b", "text": "let can be reassigned; const cannot" },
+                { "id": "c", "text": "const is faster" },
+                { "id": "d", "text": "let is only for numbers" }
+              ],
+              "correctId": "b",
+              "explanation": "const declares a constant — you cannot reassign it. let declares a variable that can be changed."
+            },
+            {
+              "id": "js-01-b",
+              "type": "fill-blank",
+              "xpReward": 15,
+              "prompt": "Complete the code to log the score:",
+              "template": "_____ score = 42;\nconsole._____(score);",
+              "blanks": [
+                { "index": 0, "answer": "const", "caseSensitive": true, "alternatives": ["let"] },
+                { "index": 1, "answer": "log", "caseSensitive": true }
+              ],
+              "hints": ["Use const for values that don't change.", "console.log() prints to the console."]
+            },
+            {
+              "id": "js-01-c",
+              "type": "free-code",
+              "xpReward": 25,
+              "prompt": "Create a `const` called `question` with the value `\"What is 2 + 2?\"` and log it.",
+              "language": "javascript",
+              "executor": "browser-js",
+              "starterCode": "// Write your code here\n",
+              "testCases": [
+                {
+                  "id": "tc1",
+                  "description": "Logs: What is 2 + 2?",
+                  "callCode": "",
+                  "expectedOutput": "What is 2 + 2?",
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "java",
+      "title": "Java",
+      "subtitle": "Build a Grade Calculator",
+      "icon": "☕",
+      "executor": "judge0",
+      "lessons": [
+        {
+          "id": "java-01-hello",
+          "title": "Hello World",
+          "xpReward": 50,
+          "projectContribution": "Create the skeleton of your Grade Calculator program.",
+          "theory": {
+            "sections": [
+              {
+                "type": "text",
+                "content": "Every Java program lives inside a `class`. The `main` method is the entry point — where the program starts."
+              },
+              {
+                "type": "code",
+                "language": "java",
+                "content": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}"
+              },
+              {
+                "type": "output",
+                "content": "Hello, World!"
+              }
+            ]
+          },
+          "challenges": [
+            {
+              "id": "java-01-a",
+              "type": "multiple-choice",
+              "xpReward": 15,
+              "prompt": "What does `System.out.println()` do?",
+              "options": [
+                { "id": "a", "text": "Reads input from the user" },
+                { "id": "b", "text": "Prints text and adds a new line" },
+                { "id": "c", "text": "Saves data to a file" },
+                { "id": "d", "text": "Declares a variable" }
+              ],
+              "correctId": "b",
+              "explanation": "System.out.println() prints the argument to the console and moves to a new line. print() does not add a newline."
+            },
+            {
+              "id": "java-01-b",
+              "type": "fill-blank",
+              "xpReward": 15,
+              "prompt": "Complete the Java Hello World program:",
+              "template": "public class Main {\n    public static void _____(String[] args) {\n        System.out._____(\"Hello!\");\n    }\n}",
+              "blanks": [
+                { "index": 0, "answer": "main", "caseSensitive": true },
+                { "index": 1, "answer": "println", "caseSensitive": true }
+              ],
+              "hints": ["The entry point method is called 'main'.", "To print with a newline use println."]
+            },
+            {
+              "id": "java-01-c",
+              "type": "free-code",
+              "xpReward": 25,
+              "prompt": "Write a complete Java program that prints `Grade Calculator` to the console.",
+              "language": "java",
+              "executor": "judge0",
+              "starterCode": "public class Main {\n    public static void main(String[] args) {\n        // Print Grade Calculator here\n    }\n}",
+              "testCases": [
+                {
+                  "id": "tc1",
+                  "description": "Prints: Grade Calculator",
+                  "callCode": "",
+                  "expectedOutput": "Grade Calculator",
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "html",
+      "title": "HTML",
+      "subtitle": "Build a Personal Profile Page",
+      "icon": "🌐",
+      "executor": "browser-html",
+      "lessons": [
+        {
+          "id": "html-01-structure",
+          "title": "Document Structure",
+          "xpReward": 50,
+          "projectContribution": "Create the skeleton of your profile page.",
+          "theory": {
+            "sections": [
+              {
+                "type": "text",
+                "content": "Every HTML page has a `<!DOCTYPE html>` declaration and a structure with `<html>`, `<head>`, and `<body>` tags."
+              },
+              {
+                "type": "code",
+                "language": "html",
+                "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>My Page</title>\n</head>\n<body>\n  <h1>Hello, World!</h1>\n</body>\n</html>"
+              }
+            ]
+          },
+          "challenges": [
+            {
+              "id": "html-01-a",
+              "type": "multiple-choice",
+              "xpReward": 15,
+              "prompt": "Where does visible page content go?",
+              "options": [
+                { "id": "a", "text": "Inside <head>" },
+                { "id": "b", "text": "Inside <body>" },
+                { "id": "c", "text": "Inside <html>" },
+                { "id": "d", "text": "Inside <!DOCTYPE>" }
+              ],
+              "correctId": "b",
+              "explanation": "The <body> contains everything the user sees: text, images, buttons, etc. <head> holds metadata."
+            },
+            {
+              "id": "html-01-b",
+              "type": "fill-blank",
+              "xpReward": 15,
+              "prompt": "Complete the HTML skeleton:",
+              "template": "<!DOCTYPE html>\n<_____>\n<head>\n  <title>Profile</title>\n</head>\n<_____>\n  <h1>My Profile</h1>\n</body>\n</html>",
+              "blanks": [
+                { "index": 0, "answer": "html", "caseSensitive": false },
+                { "index": 1, "answer": "body", "caseSensitive": false }
+              ],
+              "hints": ["The root element of an HTML page is <html>.", "Visible content goes in the <body> tag."]
+            },
+            {
+              "id": "html-01-c",
+              "type": "free-code",
+              "xpReward": 25,
+              "prompt": "Write a complete HTML page with a `<title>` of `My Profile` and an `<h1>` heading that says `Welcome to my profile!`",
+              "language": "html",
+              "executor": "browser-html",
+              "starterCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <!-- Add your title here -->\n</head>\n<body>\n  <!-- Add your h1 here -->\n</body>\n</html>",
+              "testCases": [
+                {
+                  "id": "tc1",
+                  "description": "Contains h1 with welcome text",
+                  "callCode": "",
+                  "expectedOutput": "",
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "css",
+      "title": "CSS",
+      "subtitle": "Build a Responsive Card Layout",
+      "icon": "🎨",
+      "executor": "browser-html",
+      "lessons": [
+        {
+          "id": "css-01-selectors",
+          "title": "Selectors & Properties",
+          "xpReward": 50,
+          "projectContribution": "Style the base of your card component.",
+          "theory": {
+            "sections": [
+              {
+                "type": "text",
+                "content": "CSS **selectors** target HTML elements. **Properties** define how they look. Write CSS inside `<style>` tags."
+              },
+              {
+                "type": "code",
+                "language": "html",
+                "content": "<style>\n  .card {\n    background: #fff;\n    color: #333;\n    border: 1px solid #ddd;\n  }\n</style>\n<div class=\"card\">Hello Card</div>"
+              }
+            ]
+          },
+          "challenges": [
+            {
+              "id": "css-01-a",
+              "type": "multiple-choice",
+              "xpReward": 15,
+              "prompt": "How do you select an element by its class in CSS?",
+              "options": [
+                { "id": "a", "text": "#classname" },
+                { "id": "b", "text": ".classname" },
+                { "id": "c", "text": "*classname" },
+                { "id": "d", "text": "@classname" }
+              ],
+              "correctId": "b",
+              "explanation": "A class selector uses a dot (.) prefix. An ID selector uses a hash (#) prefix."
+            },
+            {
+              "id": "css-01-b",
+              "type": "fill-blank",
+              "xpReward": 15,
+              "prompt": "Complete the CSS rule to set the card background to blue:",
+              "template": ".card {\n    _____: blue;\n}",
+              "blanks": [
+                { "index": 0, "answer": "background", "caseSensitive": false, "alternatives": ["background-color"] }
+              ],
+              "hints": ["The CSS property for background color is 'background' or 'background-color'."]
+            },
+            {
+              "id": "css-01-c",
+              "type": "free-code",
+              "xpReward": 25,
+              "prompt": "Create a styled card: a `<div class=\"card\">` with `background: #4A90E2`, `color: white`, `padding: 20px`, and text `Hello Card`.",
+              "language": "html",
+              "executor": "browser-html",
+              "starterCode": "<style>\n  /* Style the .card class here */\n</style>\n<div class=\"card\">Hello Card</div>",
+              "testCases": [
+                {
+                  "id": "tc1",
+                  "description": "Preview shows styled card",
+                  "callCode": "",
+                  "expectedOutput": "",
+                  "isHidden": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

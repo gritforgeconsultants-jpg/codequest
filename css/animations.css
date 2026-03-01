@@ -1,0 +1,103 @@
+/* ── XP Float-Up ──────────────────────────────────────── */
+.xp-pop {
+  position: fixed;
+  font-size: var(--text-lg);
+  font-weight: 800;
+  color: var(--warn);
+  pointer-events: none;
+  z-index: 999;
+  animation: xpFloat 1.2s var(--ease) forwards;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+@keyframes xpFloat {
+  0%   { opacity: 0; transform: translateY(0) scale(0.8); }
+  20%  { opacity: 1; transform: translateY(-10px) scale(1.1); }
+  60%  { opacity: 1; transform: translateY(-40px) scale(1); }
+  100% { opacity: 0; transform: translateY(-70px) scale(0.9); }
+}
+
+/* ── Level Up Flash ───────────────────────────────────── */
+.level-up-flash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(108,99,255,0.3), transparent 70%);
+  pointer-events: none;
+  z-index: 198;
+  animation: levelFlash 0.6s var(--ease) forwards;
+}
+
+@keyframes levelFlash {
+  0%   { opacity: 0; }
+  30%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ── Streak Fire ──────────────────────────────────────── */
+.streak-fire {
+  display: inline-block;
+  animation: fireWiggle 0.8s var(--ease) infinite alternate;
+}
+
+@keyframes fireWiggle {
+  0%   { transform: rotate(-5deg) scale(1); }
+  100% { transform: rotate(5deg) scale(1.1); }
+}
+
+/* ── Correct Bounce ───────────────────────────────────── */
+.correct-bounce {
+  animation: correctBounce 0.4s var(--ease);
+}
+
+@keyframes correctBounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  70%  { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+/* ── Wrong Shake ──────────────────────────────────────── */
+.wrong-shake {
+  animation: wrongShake 0.4s var(--ease);
+}
+
+@keyframes wrongShake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-6px); }
+  40%     { transform: translateX(6px); }
+  60%     { transform: translateX(-4px); }
+  80%     { transform: translateX(4px); }
+}
+
+/* ── Slide In From Right ──────────────────────────────── */
+.slide-in-right {
+  animation: slideInRight var(--normal) var(--ease);
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+/* ── Fade In ──────────────────────────────────────────── */
+.fade-in {
+  animation: fadeInAnim var(--normal) var(--ease);
+}
+
+@keyframes fadeInAnim {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Running Indicator ────────────────────────────────── */
+.running-dots::after {
+  content: '';
+  animation: dots 1.2s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0%   { content: ''; }
+  33%  { content: '.'; }
+  66%  { content: '..'; }
+  100% { content: '...'; }
+}
